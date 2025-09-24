@@ -25,26 +25,39 @@ function getHumanChoice() {
 
 function playRound(human, computer) {
   let result = "";
+  let hscore = 0;
+  let cscore = 0;
   if (human === computer){
+    hscore++; cscore++;
     result = "It's a tie";
   } else if ((human === "rock" && computer === "scissors") ||(human === "scissors" && computer === "paper")
-              || (human === "paper" && computer === "rock")) {
+    || (human === "paper" && computer === "rock")) {
+    hscore++;
     result = "You win";
   } else {
+    cscore++;
     result = "You lose";
   }
   console.log(result);
-  return result;
+   return { hscore, cscore };
 }
 
 function playGame() {
-  
+  let humaScore = 0;
+  let computerScore = 0;
+  for (let i=0; i < 5; i++){
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    const result = playRound(humanSelection, computerSelection);
+    humaScore += result.hscore;
+    computerScore += result.cscore;
+  }
+  if (humaScore > computerScore){
+    console.log("YOU WIN :)");
+  } else {
+    console.log("YOU LOSE :(");
+  }
 }
 
-let humaScore = 0;
-let computerScore = 0;
+playGame();
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
